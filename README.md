@@ -10,6 +10,11 @@ Comfast AX900 CF-943F
 This includes unbranded AX900 USB WiFi 6 Bluetooth 5.3 Adapters sold on AliExpress and Amazon
 Example: https://www.aliexpress.us/item/3256807263559115.html
 
+
+
+To install: 
+
+$make
 ### To compile for ARM64
 If you want to compile the driver for ARM64 architecture, you need to modify the Makefile by changing the following lines:
 ```bash
@@ -31,7 +36,11 @@ make
 sudo make install
 ```
 
+
+
 You will have to reinstall for any kernel updates.
+
+$make clean
 ```bash
 make clean
 ```
