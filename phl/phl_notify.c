@@ -27,7 +27,6 @@ static void _phl_notify_done(void *drv_priv, u8 *cmd, u32 cmd_len, enum rtw_phl_
 	if (cmd) {
 		_os_kmem_free(drv_priv, cmd, cmd_len);
 		cmd = NULL;
-		PHL_INFO("%s.....\n", __func__);
 	}
 }
 
