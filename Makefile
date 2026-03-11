@@ -14,6 +14,8 @@ EXTRA_CFLAGS += -Wno-unused-label
 #EXTRA_CFLAGS += -Wno-unused-function
 EXTRA_CFLAGS += -Wno-unused
 #EXTRA_CFLAGS += -Wno-uninitialized
+# Suppress missing-prototypes until all documented in docs/build_warnings_baseline.txt are fixed
+EXTRA_CFLAGS += -Wno-missing-prototypes
 
 ############ ANDROID COMMON KERNEL ############
 # clang
