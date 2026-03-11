@@ -2274,7 +2274,7 @@ static int scan_ch_ready_cb(void *priv, struct rtw_phl_scan_param *param, u8 sct
 	_adapter *padapter = scan_priv->padapter;
 	struct phl_scan_channel *scan_ch = param->sctrl[sctrl_idx].scan_ch;
 
-	RTW_INFO("%s: band=%d, ch=%d\n", __func__, scan_ch->band, scan_ch->channel);
+	RTW_DBG("%s: band=%d, ch=%d\n", __func__, scan_ch->band, scan_ch->channel);
 	return 0;
 }
 
