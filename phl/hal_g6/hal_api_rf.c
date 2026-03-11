@@ -309,7 +309,7 @@ enum rtw_hal_status rtw_hal_rf_ctrl_dbcc(struct rtw_hal_com_t *hal_com,
 	return hal_status;
 }
 
-#define DBG_RFK_TIME
+/* #define DBG_RFK_TIME - disable to avoid dmesg spam during scan */
 enum rtw_hal_status rtw_hal_rf_chl_rfk_trigger(struct rtw_hal_com_t *hal_com,
                                                u8 phy_idx,
                                                enum rfk_tri_type rt_type)
@@ -320,8 +320,10 @@ enum rtw_hal_status rtw_hal_rf_chl_rfk_trigger(struct rtw_hal_com_t *hal_com,
 	u32 iqk_start = _os_get_cur_time_ms();
 	#endif
 
+	#ifdef DBG_RFK_TIME
 	PHL_INFO("[DBG_RFK]%s: phy_idx(%d), rt_type(%d)\n", __func__,
 		phy_idx, rt_type);
+	#endif
 
 	hal_status = halrf_chl_rfk_trigger(hal_info->rf, phy_idx, rt_type);
 
