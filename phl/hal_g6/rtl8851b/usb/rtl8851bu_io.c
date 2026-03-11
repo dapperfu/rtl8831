@@ -15,6 +15,8 @@
 #define _RTL8851BU_IO_C_
 #include "../rtl8851b_hal.h"
 
+void hal_usb_set_io_ops_8851bu(struct hal_info_t *hal, struct hal_io_ops *ops);
+
 void hal_usb_set_io_ops_8851bu(struct hal_info_t *hal, struct hal_io_ops *ops)
 {
 /*
