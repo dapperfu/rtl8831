@@ -66,7 +66,7 @@ enum rtw_hal_status rtw_hal_set_ch_bw(void *hal, u8 band_idx,
 		}
 		/* if central channel changed, reset BB & MAC */
 		center_ch = rtw_phl_get_center_ch(chdef);
-		PHL_INFO("Using band:%d central channel %u for primary channel %u BW %u\n",
+		PHL_DBG("Using band:%d central channel %u for primary channel %u BW %u\n",
 		         chdef->band, center_ch, chdef->chan, chdef->bw);
 
 		change_band = chdef->band;
@@ -138,7 +138,7 @@ enum rtw_hal_status rtw_hal_set_ch_bw(void *hal, u8 band_idx,
 			return status;
 		}
 
-		PHL_INFO("%s phy_idx:%d, band:%d, ch:%d, bw:%d, offset:%d\n",
+		PHL_DBG("%s phy_idx:%d, band:%d, ch:%d, bw:%d, offset:%d\n",
 			__func__, phy_idx, chdef->band, chdef->chan, tmp_bw, chdef->offset);
 
 #ifdef CONFIG_PHL_CHSWOFLD
@@ -159,7 +159,7 @@ enum rtw_hal_status rtw_hal_set_ch_bw(void *hal, u8 band_idx,
 	if (status != RTW_HAL_STATUS_SUCCESS)
 		PHL_ERR("rtw_hal_rf_chl_rfk_trigger fail!\n");
 
-	PHL_INFO("%s: Switch chdef done, rt_type:%s, frc_switch(%d)\n", __func__,
+	PHL_DBG("%s: Switch chdef done, rt_type:%s, frc_switch(%d)\n", __func__,
 		(rt_type) ?"Y" : "N", frc_switch);
 #ifdef DBG_DBCC_MONITOR_TIME
 	phl_fun_monitor_end(&start_t, __FUNCTION__);
