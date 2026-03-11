@@ -2173,7 +2173,7 @@ dispr_add_token_req(void *dispr,
 
 	push_back_wait_req(obj, req_ex);
 	*req_hdl = GEN_VALID_HDL(req_ex->idx);
-	PHL_TRACE(COMP_PHL_DBG, _PHL_INFO_, "%s[%d], id:%d, hdl:0x%x token_cnt:%d\n",
+	PHL_TRACE(COMP_PHL_DBG, _PHL_DEBUG_, "%s[%d], id:%d, hdl:0x%x token_cnt:%d\n",
 	          __func__, obj->idx, req->module_id, *req_hdl, _os_atomic_read(d, &(obj->token_cnt)));
 
 	if (pq_get_front(d, &(obj->token_op_q), &node, _bh) == false &&
