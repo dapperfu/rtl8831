@@ -282,6 +282,8 @@ u8 rtw_cfg80211_ch_switch_notify(_adapter *adapter,
 	#else
 	cfg80211_ch_switch_notify(adapter->pnetdev, &chdef);
 	#endif
+	#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 3, 0)) && (LINUX_VERSION_CODE < KERNEL_VERSION(6, 9, 0)) */
+#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 8, 0)) */
 
 #else
 	int freq = rtw_bch2freq(rtw_chdef->band, rtw_chdef->chan);
@@ -302,7 +304,6 @@ u8 rtw_cfg80211_ch_switch_notify(_adapter *adapter,
 exit:
 	return ret;
 }
-#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0)) */
 
 static void rtw_2g_channels_init(struct ieee80211_channel *channels)
 {
@@ -11412,4 +11413,5 @@ void rtw_cfg80211_dev_res_unregister(struct dvobj_priv *dvobj)
 	rtw_wiphy_unregister(dvobj_to_wiphy(dvobj));
 }
 
+#endif
 #endif /* CONFIG_IOCTL_CFG80211 */
