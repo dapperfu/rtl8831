@@ -1,0 +1,8 @@
+# Debian package build artifacts
+debian/rtl8851bu-dkms/
+debian/.debhelper*
+debian/files
+debian/*.substvars
+*.deb
+*.buildinfo
+*.changes
