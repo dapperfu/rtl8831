@@ -592,7 +592,7 @@ static bool _pop_idle_req(struct cmd_ps *ps, struct pwr_req **req)
 		ret = false;
 	}
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): remaining idle req cnt %d.\n", __func__, ps->req_idle_q.cnt);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): remaining idle req cnt %d.\n", __func__, ps->req_idle_q.cnt);
 
 	return ret;
 }
@@ -603,7 +603,7 @@ static void _push_idle_req(struct cmd_ps *ps, struct pwr_req *req)
 
 	pq_push(d, &(ps->req_idle_q), &(req->list), _tail, _bh);
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): remaining idle req cnt %d.\n", __func__, ps->req_idle_q.cnt);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): remaining idle req cnt %d.\n", __func__, ps->req_idle_q.cnt);
 }
 
 static bool _pop_busy_req(struct cmd_ps *ps, struct pwr_req **req)
@@ -620,7 +620,7 @@ static bool _pop_busy_req(struct cmd_ps *ps, struct pwr_req **req)
 		ret = false;
 	}
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): current busy req cnt %d.\n", __func__, ps->req_busy_q.cnt);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): current busy req cnt %d.\n", __func__, ps->req_busy_q.cnt);
 
 	return ret;
 }
@@ -631,7 +631,7 @@ static void _push_busy_req(struct cmd_ps *ps, struct pwr_req *req)
 
 	pq_push(d, &(ps->req_busy_q), &(req->list), _tail, _bh);
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): current busy req cnt %d.\n", __func__, ps->req_busy_q.cnt);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): current busy req cnt %d.\n", __func__, ps->req_busy_q.cnt);
 }
 
 static void _cancel_pwr_req(struct cmd_ps *ps, u16 evt_id)
@@ -643,7 +643,7 @@ static void _cancel_pwr_req(struct cmd_ps *ps, u16 evt_id)
 		return;
 	}
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): evt_id %d\n", __func__, req->evt_id);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): evt_id %d\n", __func__, req->evt_id);
 
 	if (req->evt_id != evt_id && MSG_EVT_PHY_IDLE != evt_id)
 		PHL_TRACE(COMP_PHL_PS, _PHL_WARNING_, "[PS_CMD], %s(): evt_id mismatch.\n", __func__);
@@ -665,7 +665,7 @@ static enum rtw_phl_status _add_pwr_req(struct cmd_ps *ps, u16 evt_id)
 
 	req->evt_id = evt_id;
 
-	PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): evt_id %d\n", __func__, evt_id);
+	PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): evt_id %d\n", __func__, evt_id);
 
 	_push_busy_req(ps, req);
 
@@ -1913,7 +1913,7 @@ _general_mdl_msg_hdlr(struct cmd_ps *ps, struct phl_msg *msg)
 	case MSG_EVT_CONNECT_CMD_DBCC_DIS:
 	case MSG_EVT_DISCONNECT_CMD_DBCC_EN:
 #endif
-		PHL_TRACE(COMP_PHL_PS, _PHL_INFO_, "[PS_CMD], %s(): MDL_ID(%d)-EVT_ID(%d) in %s phase.\n", __func__,
+		PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_, "[PS_CMD], %s(): MDL_ID(%d)-EVT_ID(%d) in %s phase.\n", __func__,
 			MSG_MDL_ID_FIELD(msg->msg_id), MSG_EVT_ID_FIELD(msg->msg_id),
 			(IS_MSG_IN_PRE_PHASE(msg->msg_id) ? "pre-protocol" : "post-protocol"));
 		if (IS_MSG_IN_PRE_PHASE(msg->msg_id))
@@ -2026,7 +2026,7 @@ _custom_mdl_msg_hdlr(struct cmd_ps *ps, struct phl_msg *msg)
 
 	switch (MSG_EVT_ID_FIELD(msg->msg_id)) {
 	case MSG_EVT_ANT_TOOL_OP_HDLR:
-		PHL_TRACE(COMP_PHL_PS, _PHL_INFO_,
+		PHL_TRACE(COMP_PHL_PS, _PHL_DEBUG_,
 			  "[PS_CMD], %s(): MDL_ID(%d)-EVT_ID(%d) in %s phase.\n", __func__,
 			  MSG_MDL_ID_FIELD(msg->msg_id), MSG_EVT_ID_FIELD(msg->msg_id),
 			  (IS_MSG_IN_PRE_PHASE(msg->msg_id) ? "pre-protocol" : "post-protocol"));
