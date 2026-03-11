@@ -28,6 +28,28 @@ This will instruct the build process to target ARM64 architecture instead of the
 sudo dkms install .
 ```
 
+### Debian/Ubuntu package (DKMS)
+Build a `.deb` package and install it with dpkg. DKMS will build the module at install time and rebuild automatically after kernel updates.
+
+**Build the package** (requires build-essential, debhelper, dkms, dh-dkms):
+```bash
+apt install build-essential debhelper dkms dh-dkms
+make deb
+```
+The `.deb` is created in the parent directory (e.g. `../rtl8851bu-dkms_0.2_amd64.deb`).
+
+**Install:**
+```bash
+sudo dpkg -i ../rtl8851bu-dkms_0.2_*.deb
+```
+If dependencies are missing: `sudo apt-get install -f`
+
+**Uninstall:**
+```bash
+sudo apt remove rtl8851bu-dkms
+```
+This runs `dkms remove` and unregisters the module.
+
 ### Manually install: 
 ```bash
 make
