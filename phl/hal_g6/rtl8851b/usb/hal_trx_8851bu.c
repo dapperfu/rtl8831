@@ -16,6 +16,19 @@
 #include "../rtl8851b_hal.h"
 #include "hal_trx_8851bu.h"
 
+enum rtw_hal_status hal_trx_init_8851bu(struct hal_info_t *hal);
+u8 hal_get_bulkout_id_8851bu(struct hal_info_t *hal, u8 dma_ch, u8 mode);
+u8 hal_get_max_bulkout_wd_num_8851bu(struct hal_info_t *hal);
+u32 hal_get_wd_len_8851bu(struct hal_info_t *hal, struct rtw_xmit_req *tx_req);
+enum rtw_hal_status hal_fill_wd_8851bu(struct hal_info_t *hal,
+				       struct rtw_xmit_req *tx_req,
+				       u8 *wd_buf, u32 *wd_len);
+enum rtw_hal_status hal_usb_tx_agg_cfg_8851bu(struct hal_info_t *hal, u8 *wd_buf, u8 agg_num);
+enum rtw_hal_status hal_usb_rx_agg_cfg_8851bu(struct hal_info_t *hal, u8 mode, u8 agg_mode,
+					      u8 drv_define, u8 timeout, u8 size, u8 pkt_num);
+u16 hal_handle_rx_report_8851bu(struct hal_info_t *hal, u8 *rp, u16 len,
+			       u8 *mac_id, u8 *ac_queue, u8 *txsts);
+u8 hal_get_fwcmd_queue_idx_8851bu(void);
 
 static void _hal_dump_rxdesc(u8 *buf, struct rtw_r_meta_data *mdata)
 {
