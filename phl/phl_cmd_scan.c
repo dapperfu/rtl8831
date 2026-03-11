@@ -31,7 +31,7 @@ static void _cmd_scan_req_deinit(struct phl_info_t *phl_info,
                                  struct rtw_phl_scan_param *param);
 static void _cmd_scan_timer(void *context);
 
-#define DBG_SCAN_CHAN_DUMP
+/* #define DBG_SCAN_CHAN_DUMP - disable to avoid dmesg spam during scan */
 
 
 u8 phl_cmd_scan_ctrl(struct rtw_phl_scan_param *param, u8 band_idx,
@@ -316,7 +316,7 @@ next_ch:
 		return NULL;
 	}
 
-	PHL_INFO("%s:[%d] repeat[%d] ch_idx=[%d], remain=[%d], ch_number=%d, scan_mode= %s\n", __func__,
+	PHL_DBG("%s:[%d] repeat[%d] ch_idx=[%d], remain=[%d], ch_number=%d, scan_mode= %s\n", __func__,
 		 band_idx, sctrl->repeat, sctrl->ch_idx, sctrl->chlist.cnt, sctrl->scan_ch->channel,
 		 (sctrl->scan_ch->scan_mode == BACKOP_MODE)? "OP_CH": "Non-OP");
 
@@ -355,7 +355,7 @@ static void _cmd_scan_timer(void *context)
 	struct phl_msg msg = {0};
 	struct phl_msg_attribute attr = {0};
 
-	PHL_INFO("%s: band_idx=%d\n", __func__, band_idx);
+	PHL_DBG("%s: band_idx=%d\n", __func__, band_idx);
 
 	SET_MSG_MDL_ID_FIELD(msg.msg_id, PHL_FG_MDL_SCAN);
 /** When listen state of each channel entry expired,
@@ -610,7 +610,7 @@ enum phl_mdl_ret_code _cmd_scan_fail_ev_hdlr(
 		case MSG_EVT_SWCH_START:
 			/* fall through */
 		case MSG_EVT_SWCH_DONE:
-			PHL_INFO("[%d]SCAN_START/SWCH_START/SWCH_DONE:: failed/timeout handler \n", band_idx);
+			PHL_DBG("[%d]SCAN_START/SWCH_START/SWCH_DONE:: failed/timeout handler \n", band_idx);
 
 			SET_MSG_EVT_ID_FIELD(nextmsg.msg_id, MSG_EVT_SCAN_END);
 			nextmsg.rsvd[0].ptr = (u8*)sctrl->wrole;
@@ -623,7 +623,7 @@ enum phl_mdl_ret_code _cmd_scan_fail_ev_hdlr(
 		case MSG_EVT_SCAN_END:
 			// free token
 			// release timer
-			PHL_INFO("[%d]MSG_EVT_SCAN_END:: failed/timeout handler \n", band_idx);
+			PHL_DBG("[%d]MSG_EVT_SCAN_END:: failed/timeout handler \n", band_idx);
 			pstatus = phl_disp_eng_free_token(phl_info, band_idx, &sctrl->token);
 			if (pstatus == RTW_PHL_STATUS_SUCCESS) {
 				if (IS_MSG_CANNOT_IO(msg->msg_id))
@@ -776,7 +776,7 @@ enum phl_mdl_ret_code _cmd_scan_hdl_internal_evt(
 		return MDL_RET_FAIL;
 	}
 	else {
-		PHL_INFO("\t[cmd_scan]:: TimeIntvl: %u \n", diff_time);
+		PHL_DBG("\t[cmd_scan]:: TimeIntvl: %u \n", diff_time);
 	}
 
 	#ifdef CONFIG_PHL_CMD_SCAN_BKOP_TIME
@@ -804,7 +804,7 @@ enum phl_mdl_ret_code _cmd_scan_hdl_internal_evt(
 		case MSG_EVT_SCAN_START:
 			_cmd_scan_start(phl_info, sctrl, band_idx);
 
-			PHL_INFO("[%d]MSG_EVT_SCAN_START \n", band_idx);
+			PHL_DBG("[%d]MSG_EVT_SCAN_START \n", band_idx);
 			/* [scan start notify] */
 			if (!TEST_SCAN_FLAGS(param->state, CMD_SCAN_STARTED)) {
 				if (param->ops->scan_start)
@@ -820,11 +820,11 @@ enum phl_mdl_ret_code _cmd_scan_hdl_internal_evt(
 		break;
 		case MSG_EVT_LISTEN_STATE_EXPIRE:
 			if (!param->ops->scan_probe) {
-				PHL_INFO("[%d]MSG_EVT_LISTEN_STATE_EXPIRE \n", band_idx);
+				PHL_DBG("[%d]MSG_EVT_LISTEN_STATE_EXPIRE \n", band_idx);
 				if (phl_cmd_chk_ext_act_scan(param, sctrl_idx)) {
 					_os_set_timer(d, &sctrl->scan_timer,
 					              param->ext_act_scan_period);
-					PHL_INFO("%s :: extend listen state of ch %d by %d ms, and reset timer\n",
+					PHL_DBG("%s :: extend listen state of ch %d by %d ms, and reset timer\n",
 						__func__, sctrl->scan_ch->channel, param->ext_act_scan_period);
 					break;
 				}
@@ -846,7 +846,7 @@ enum phl_mdl_ret_code _cmd_scan_hdl_internal_evt(
 			/*	ycx++
 				ycx > length(yclist) ? SCAN_EV_END : switch channel */
 
-			PHL_INFO("[%d]MSG_EVT_SWCH_START \n", band_idx);
+			PHL_DBG("[%d]MSG_EVT_SWCH_START \n", band_idx);
 
 			/* For the first time, param->scan_ch would be NULL */
 			/* Current channel scan_mode */
@@ -930,11 +930,11 @@ enum phl_mdl_ret_code _cmd_scan_hdl_internal_evt(
 			if (param->ops->scan_ch_ready)
 				param->ops->scan_ch_ready(param->priv, param, sctrl_idx);
 
-			PHL_INFO("\tMSG_EVT_SWCH_DONE :: duration=%d\n", sctrl->scan_ch->duration);
+			PHL_DBG("\tMSG_EVT_SWCH_DONE :: duration=%d\n", sctrl->scan_ch->duration);
 		break;
 
 		case MSG_EVT_SCAN_END:
-			PHL_INFO("[%d]MSG_EVT_SCAN_END \n", band_idx);
+			PHL_DBG("[%d]MSG_EVT_SCAN_END \n", band_idx);
 			pstatus = phl_disp_eng_free_token(phl_info, band_idx, &sctrl->token);
 			if(pstatus == RTW_PHL_STATUS_SUCCESS) {
 
@@ -1101,7 +1101,7 @@ enum phl_mdl_ret_code _phl_cmd_scan_req_set_info(
 			    scan_ch->channel == channel &&
 			    scan_ch->ext_act_scan == EXT_ACT_SCAN_ENABLE) {
 				scan_ch->ext_act_scan = EXT_ACT_SCAN_TRIGGER;
-				PHL_INFO("%s[%d] :: channel %d extend for active scan\n", __func__, band_idx, channel);
+				PHL_DBG("%s[%d] :: channel %d extend for active scan\n", __func__, band_idx, channel);
 			}
 			if (scan_ch &&
 			    scan_ch->channel != channel)
