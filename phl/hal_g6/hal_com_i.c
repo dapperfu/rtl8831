@@ -330,7 +330,7 @@ rtw_hal_reset(struct rtw_hal_com_t *hal_com, enum phl_phy_idx phy_idx, u8 band_i
 
 	phl_fun_monitor_start(&start_t, true, __FUNCTION__);
 #endif /* DBG_DBCC_MONITOR_TIME */
-	PHL_INFO("%s: phy_idx(%d) band_idx(%d)\n", __FUNCTION__, phy_idx, band_idx);
+	PHL_DBG("%s: phy_idx(%d) band_idx(%d)\n", __FUNCTION__, phy_idx, band_idx);
 
 	if (reset){
 		/* disable contention */
@@ -430,7 +430,7 @@ rtw_hal_init_hw_band_info(void *hal, enum phl_band_idx band_idx)
 	struct hal_info_t *hal_i = (struct hal_info_t *)hal;
 	struct rtw_hw_band *hw_band_i = &hal_i->hal_com->band[band_idx];
 
-	PHL_INFO("%s: band_idx(%d)\n", __FUNCTION__, band_idx);
+	PHL_DBG("%s: band_idx(%d)\n", __FUNCTION__, band_idx);
 	_os_mem_set(hal_i->phl_com->drv_priv, hw_band_i,
 			0, sizeof(struct rtw_hw_band));
 	rtw_phl_init_chdef(hal_i->phl_com, &hw_band_i->cur_chandef);
