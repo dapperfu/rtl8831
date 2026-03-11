@@ -111,7 +111,7 @@ do { \
 /* 6g */
 #define PHL_GET_CHDEF_6G(_idx_, _chdef_, _chdef_tbl_) \
 do { \
-	u8 size = sizeof(_chdef_tbl_) / sizeof(struct regulatory_domain_mapping_6g); \
+	u8 size = sizeof(_chdef_tbl_) / sizeof((_chdef_tbl_)[0]); \
 	regu_get_chdef_6g((_idx_), size, (_chdef_), &(_chdef_tbl_)[0]); \
 } while (0)
 

@@ -17,6 +17,9 @@ EXTRA_CFLAGS += -Wno-unused
 # Suppress missing-prototypes/missing-declarations until all documented in docs/build_warnings_baseline.txt are fixed
 EXTRA_CFLAGS += -Wno-missing-prototypes
 EXTRA_CFLAGS += -Wno-missing-declarations
+# Suppress enum conversion (hal/phl layer enum mapping) and address (redundant NULL checks)
+EXTRA_CFLAGS += -Wno-enum-conversion
+EXTRA_CFLAGS += -Wno-address
 
 ############ ANDROID COMMON KERNEL ############
 # clang
