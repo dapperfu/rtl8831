@@ -17,6 +17,9 @@
 #include "../mac_priv.h"
 #if MAC_AX_8851B_SUPPORT
 
+struct mac_ax_h2creg_offset *get_h2creg_offset_8851b(struct mac_ax_adapter *adapter);
+struct mac_ax_c2hreg_offset *get_c2hreg_offset_8851b(struct mac_ax_adapter *adapter);
+
 static struct mac_ax_h2creg_offset h2creg_offset = {
 	R_AX_H2CREG_DATA0, /* data0 */
 	R_AX_H2CREG_DATA1, /* data1 */
