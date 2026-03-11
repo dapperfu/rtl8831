@@ -14,8 +14,9 @@ EXTRA_CFLAGS += -Wno-unused-label
 #EXTRA_CFLAGS += -Wno-unused-function
 EXTRA_CFLAGS += -Wno-unused
 #EXTRA_CFLAGS += -Wno-uninitialized
-# Suppress missing-prototypes until all documented in docs/build_warnings_baseline.txt are fixed
+# Suppress missing-prototypes/missing-declarations until all documented in docs/build_warnings_baseline.txt are fixed
 EXTRA_CFLAGS += -Wno-missing-prototypes
+EXTRA_CFLAGS += -Wno-missing-declarations
 
 ############ ANDROID COMMON KERNEL ############
 # clang
@@ -842,6 +843,10 @@ uninstall:
 	rm -f $(MODDESTDIR)/$(MODULE_NAME).ko
 	/sbin/depmod -a ${KVER}
 
+deb:
+	$(MAKE) clean
+	dpkg-buildpackage -b -us -uc
+
 modules_install:
 	$(MAKE) INSTALL_MOD_STRIP=1 M=$(M) -C $(KSRC) modules_install
 #	mkdir -p ${OUT_DIR}/../vendor_lib/modules
@@ -886,7 +891,7 @@ config_r:
 	/bin/bash script/Configure script/config.in
 
 
-.PHONY: modules clean
+.PHONY: modules clean deb
 
 clean:
 #	$(MAKE) -C $(KSRC) M=$(shell pwd) clean

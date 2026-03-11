@@ -1,0 +1,6 @@
+rtl8851bu-dkms (0.2) unstable; urgency=medium
+
+  * DKMS package for Realtek RTL8851BU/RTL8831BU USB WiFi 6 driver.
+  * Installs source to /usr/src/rtl8851bu-0.2/ for DKMS build on install.
+
+ -- Unknown <unknown@unknown>  Mon, 10 Mar 2025 12:00:00 +0000

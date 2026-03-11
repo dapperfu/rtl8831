@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --with dkms
+
+override_dh_auto_clean:
+	true
+
+override_dh_auto_build:
+	true
+
+override_dh_auto_install:
+	true

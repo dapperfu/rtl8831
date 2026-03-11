@@ -1,0 +1,16 @@
+Source: rtl8851bu-dkms
+Section: kernel
+Priority: optional
+Maintainer: Unknown <unknown@unknown>
+Build-Depends: debhelper (>= 10), dkms, dh-dkms
+Standards-Version: 4.5.0
+
+Package: rtl8851bu-dkms
+Architecture: all
+Depends: dkms, ${misc:Depends}
+Recommends: linux-headers-generic | linux-headers-amd64
+Description: DKMS source for Realtek RTL8851BU USB WiFi 6 driver
+ This package provides the source for the 8851bu kernel module for
+ Realtek RTL8851BU/RTL8831BU USB WiFi 6 adapters. The module is built
+ automatically when the package is installed or when the kernel is
+ updated (via DKMS).
