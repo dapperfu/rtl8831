@@ -1809,7 +1809,7 @@ _phl_mrc_module_swch_start_hdlr(void *dispr,
 		ret = MDL_RET_IGNORE;
 		goto _exit;
 	}
-	PHL_TRACE(COMP_PHL_DBG, _PHL_INFO_,
+	PHL_TRACE(COMP_PHL_DBG, _PHL_DEBUG_,
 		"%s[%d]: MSG_EVT_SWCH_START\n", __FUNCTION__, msg->band_idx);
 
 	op_info.op_code = FG_REQ_OP_GET_ROLE;
@@ -1898,7 +1898,7 @@ _phl_mrc_module_swch_done_hdlr(void *dispr,
 		ret = MDL_RET_IGNORE;
 		goto _exit;
 	}
-	PHL_TRACE(COMP_PHL_DBG, _PHL_INFO_,
+	PHL_TRACE(COMP_PHL_DBG, _PHL_DEBUG_,
 		"%s[%d]: MSG_EVT_SWCH_DONE\n", __FUNCTION__, msg->band_idx);
 	scan_ch = *(struct phl_scan_channel *)(msg->inbuf);
 
