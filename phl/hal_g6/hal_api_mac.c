@@ -7666,7 +7666,7 @@ rtw_hal_tx_pause(struct rtw_hal_com_t *hal_com,
 			tx_cfg |= tx_off[i];
 	/* tx_cfg is white list, but tx_pause of struct rtw_hw_band is black list */
 	tx_cfg = ~tx_cfg;
-	PHL_INFO("TX %sPause - Reason(%d) for band-%u, final tx_cfg(0x%04x)\n",
+	PHL_DBG("TX %sPause - Reason(%d) for band-%u, final tx_cfg(0x%04x)\n",
 		 tx_pause?"":"Un-", rson, band_idx, tx_cfg);
 
 	hstatus = rtw_hal_mac_set_sch_tx_en(hal_com, band_idx,
